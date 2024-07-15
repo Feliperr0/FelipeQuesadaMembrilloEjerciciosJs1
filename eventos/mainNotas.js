@@ -88,4 +88,3 @@ const limpiarFormulario = () => {
     document.getElementById("textoNota").value = "";
 };
 
-let hola = 0

@@ -62,6 +62,9 @@ body {
 
 .card{
     width: 400px;
-    border: 19px;
+}
+
+#output{
+    background-color: white;
     
 }
