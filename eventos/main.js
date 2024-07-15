@@ -49,18 +49,18 @@ button.addEventListener('click', () => {
 
 //Conversor de monedas
 
-let cantidadInput = document.getElementById('cantidad');
-const monedaEntradaSelect = document.getElementById('monedaEntrada');
-const monedaSalidaSelect = document.getElementById('monedaSalida');
-const botonConvertir = document.getElementById('botonConvertir');
-const resultadoInput = document.getElementById('resultadoInput');
+let cantidadInput = document.getElementById('cantidad')
+const monedaEntradaSelect = document.getElementById('monedaEntrada')
+const monedaSalidaSelect = document.getElementById('monedaSalida')
+const botonConvertir = document.getElementById('botonConvertir')
+const resultadoInput = document.getElementById('resultadoInput')
 
 botonConvertir.addEventListener('click', () => {
   let cantidad = parseFloat(cantidadInput.value)
   const monedaEntrada = monedaEntradaSelect.value
   const monedaSalida = monedaSalidaSelect.value
 
-  const resultado = convertirMoneda(cantidad, monedaEntrada, monedaSalida);
+  const resultado = convertirMoneda(cantidad, monedaEntrada, monedaSalida)
   resultadoInput.value = resultado;
 })
 
@@ -74,7 +74,7 @@ function convertirMoneda(cantidad, monedaEntrada, monedaSalida) {
   } else if (monedaEntrada === 'MXN' && monedaSalida === 'USD') {
     resultado = cantidad / tasaCambio
   } else {
-    resultado = cantidad; // Misma moneda
+    resultado = cantidad 
   }
 
   return resultado.toFixed(2)
@@ -83,5 +83,3 @@ function convertirMoneda(cantidad, monedaEntrada, monedaSalida) {
 
 
 
-
-//
