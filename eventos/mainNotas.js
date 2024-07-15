@@ -8,26 +8,26 @@ let notas = [{
     texto: "Este es el contenido de la segunda nota de prueba."
 }
 ]
-let idGlobal = 2; // Inicializar con el ID de la última nota de prueba
+let idGlobal = 2; // ID de la última nota de prueba, control
 
 
 const pintarNotas = () => {
-    const contenedorNotas = document.getElementById("contenedorNotas");
-    contenedorNotas.innerHTML = ""; // Limpiar antes de pintar
+    const contenedorNotas = document.getElementById("contenedorNotas")
+    contenedorNotas.innerHTML = "" // limpiar para pintar
 
     if (notas.length === 0) {
-        const mensajeVacio = document.createElement("p");
-        mensajeVacio.classList.add("mensaje-vacio");
-        mensajeVacio.textContent = "NO HAY NOTAS PARA MOSTRAR";
-        contenedorNotas.appendChild(mensajeVacio);
+        const mensajeVacio = document.createElement("p")
+        mensajeVacio.classList.add("mensaje-vacio")
+        mensajeVacio.textContent = "NO HAY NOTAS PARA MOSTRAR"
+        contenedorNotas.appendChild(mensajeVacio)
     } else {
-        let htmlNotas = "";
+        let htmlNotas = ""
 
         notas.forEach(nota => {
-            const idNota = nota.id;
-            const tituloNota = nota.titulo;
-            const textoNota = nota.texto;
-            const realizada = nota.realizada;
+            const idNota = nota.id
+            const tituloNota = nota.titulo
+            const textoNota = nota.texto
+            const realizada = nota.realizada
 
             const tarjetaHTML = `
         <div class= "card">
@@ -41,31 +41,31 @@ const pintarNotas = () => {
             </div>
           </div>
           </div>
-        `;
+        `
 
-            htmlNotas += tarjetaHTML;
+            htmlNotas += tarjetaHTML
         });
 
         contenedorNotas.innerHTML = htmlNotas;
 
         
-        // Agregar listeners a los botones de borrar
-        const botonesBorrar = document.querySelectorAll(".nota .botones button:nth-child(1)");
+        // listener para borrar
+        const botonesBorrar = document.querySelectorAll(".nota .botones button:nth-child(1)")
         botonesBorrar.forEach(boton => {
-            boton.addEventListener("click", borrarNota);
+            boton.addEventListener("click", borrarNota)
         });
 
-        // Agregar listeners a los botones de marcar como realizada
-        const botonesMarcar = document.querySelectorAll(".nota .botones button:nth-child(2)");
+        // listener para marcar como realizada
+        const botonesMarcar = document.querySelectorAll(".nota .botones button:nth-child(2)")
         botonesMarcar.forEach(boton => {
-            boton.addEventListener("click", marcarRealizada);
-        });
+            boton.addEventListener("click", marcarRealizada)
+        })
     }
-};
+}
 
 const guardarNota = () => {
-    const titulo = document.getElementById("tituloNota").value;
-    const texto = document.getElementById("textoNota").value;
+    const titulo = document.getElementById("tituloNota").value
+    const texto = document.getElementById("textoNota").value
 
     if (titulo && texto) {
         idGlobal++;
@@ -75,16 +75,15 @@ const guardarNota = () => {
             texto: texto
         };
 
-        notas.push(nuevaNota);
-        pintarNotas();
-        limpiarFormulario();
+        notas.push(nuevaNota)
+        pintarNotas()
+        limpiarFormulario()
     } else {
-        alert("Debes completar el título y el contenido de la nota.");
+        alert("Debes completar el título y el contenido de la nota.")
     }
-};
+}
 
 const limpiarFormulario = () => {
-    document.getElementById("tituloNota").value = "";
-    document.getElementById("textoNota").value = "";
-};
-
+    document.getElementById("tituloNota").value = ""
+    document.getElementById("textoNota").value = ""
+}
