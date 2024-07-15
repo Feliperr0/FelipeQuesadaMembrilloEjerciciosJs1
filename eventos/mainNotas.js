@@ -44,7 +44,7 @@ const pintarNotas = () => {
         `
 
             htmlNotas += tarjetaHTML
-        });
+        })
 
         contenedorNotas.innerHTML = htmlNotas;
 
@@ -53,7 +53,7 @@ const pintarNotas = () => {
         const botonesBorrar = document.querySelectorAll(".nota .botones button:nth-child(1)")
         botonesBorrar.forEach(boton => {
             boton.addEventListener("click", borrarNota)
-        });
+        })
 
         // listener para marcar como realizada
         const botonesMarcar = document.querySelectorAll(".nota .botones button:nth-child(2)")
