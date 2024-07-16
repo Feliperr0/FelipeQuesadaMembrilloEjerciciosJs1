@@ -1,89 +1,75 @@
 let notas = [{
     id: 1,
     titulo: "Nota de ejemplo 1",
-    texto: "Este es el contenido de la primera nota de prueba."
+    texto: "Este es el contenido de la primera nota de prueba.",
+    realizada: true
 }, {
     id: 2,
     titulo: "Nota de ejemplo 2",
-    texto: "Este es el contenido de la segunda nota de prueba."
-}
+    texto: "Este es el contenido de la segunda nota de prueba.",
+    realizada: false
+},
 ]
 let idGlobal = 2; // ID de la última nota de prueba, control
 
-
-const pintarNotas = () => {
-    const contenedorNotas = document.getElementById("contenedorNotas")
-    contenedorNotas.innerHTML = "" // limpiar para pintar
+function pintarNotas() {
+    const contenedorNotas = document.getElementById("contenedor-notas");
+    contenedorNotas.innerHTML = ""; // Limpiar el contenido previo
 
     if (notas.length === 0) {
-        const mensajeVacio = document.createElement("p")
-        mensajeVacio.classList.add("mensaje-vacio")
-        mensajeVacio.textContent = "NO HAY NOTAS PARA MOSTRAR"
-        contenedorNotas.appendChild(mensajeVacio)
+        // Mostrar mensaje si no hay notas
+        contenedorNotas.innerHTML = `<p>NO HAY NOTAS PARA MOSTRAR</p>`;
     } else {
-        let htmlNotas = ""
+        notas.forEach((nota) => {
+            const tarjeta = document.createElement("div");
+            tarjeta.classList.add("tarjeta-nota");
+            tarjeta.classList.add("card");
+            tarjeta.classList.add("m-2");
+            tarjeta.classList.add("justify-content-center");
+            tarjeta.innerHTML = `         
+              <h5 class="card-title">${nota.titulo}</h5>
+              <p class="card-text">${nota.texto}</p>
+              <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
+              
+              <label for="check-${nota.id}">Realizada</label>
+              <button class="btn btn-primary" id="btn-borrar-${nota.id}">Borrar nota</button>    
+        `;
+            contenedorNotas.appendChild(tarjeta);
 
-        notas.forEach(nota => {
-            const idNota = nota.id
-            const tituloNota = nota.titulo
-            const textoNota = nota.texto
-            const realizada = nota.realizada
-
-            const tarjetaHTML = `
-        <div class= "card">
-          <div class="nota" id="nota-${idNota}">
-            <input type="checkbox" class="checkbox-nota" ${realizada ? 'checked' : ''}>
-            <h3>${tituloNota}</h3>
-            <p>${textoNota}</p>
-            <div class="botones">
-              <button>Borrar nota</button>
-              <button>Marcar como realizada</button>
-            </div>
-          </div>
-          </div>
-        `
-
-            htmlNotas += tarjetaHTML
-        })
-
-        contenedorNotas.innerHTML = htmlNotas;
-
-        
-        // listener para borrar
-        const botonesBorrar = document.querySelectorAll(".nota .botones button:nth-child(1)")
-        botonesBorrar.forEach(boton => {
-            boton.addEventListener("click", borrarNota)
-        })
-
-        // listener para marcar como realizada
-        const botonesMarcar = document.querySelectorAll(".nota .botones button:nth-child(2)")
-        botonesMarcar.forEach(boton => {
-            boton.addEventListener("click", marcarRealizada)
-        })
+            const botonBorrar = document.getElementById(`btn-borrar-${nota.id}`);
+            botonBorrar.addEventListener("click", () => borrarNota(nota.id));
+        });
     }
 }
 
-const guardarNota = () => {
-    const titulo = document.getElementById("tituloNota").value
-    const texto = document.getElementById("textoNota").value
+function agregarNota() {
+    const titulo = document.getElementById("titulo-nota").value;
+    const texto = document.getElementById("texto-nota").value;
 
     if (titulo && texto) {
         idGlobal++;
         const nuevaNota = {
             id: idGlobal,
             titulo: titulo,
-            texto: texto
+            texto: texto,
+            realizada: false,
         };
+        notas.push(nuevaNota);
+        pintarNotas();
 
-        notas.push(nuevaNota)
-        pintarNotas()
-        limpiarFormulario()
     } else {
-        alert("Debes completar el título y el contenido de la nota.")
+        alert("Debes completar ambos campos para crear una nota.");
     }
 }
 
-const limpiarFormulario = () => {
-    document.getElementById("tituloNota").value = ""
-    document.getElementById("textoNota").value = ""
+const botonGuardar = document.getElementById("btn-guardar");
+botonGuardar.addEventListener("click", agregarNota);
+
+function borrarNota(id) {
+    const indice = notas.findIndex((nota) => nota.id === id);
+    if (indice !== -1) {
+        notas.splice(indice, 1);
+        pintarNotas();
+    }
 }
+

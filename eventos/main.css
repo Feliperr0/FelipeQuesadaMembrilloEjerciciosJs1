@@ -62,9 +62,18 @@ body {
 
 .card{
     width: 400px;
+    
 }
 
 #output{
     background-color: white;
     
+}
+
+
+#contenedor-notas{
+    background-color: aqua;
+    width:90vw;
+    height: 80vh;
+    border: 10px solid;
 }
