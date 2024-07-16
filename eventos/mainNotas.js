@@ -14,7 +14,7 @@ let idGlobal = 2 // id control
 
 function pintarNotas() {
     const contenedorNotas = document.getElementById("contenedor-notas")
-    contenedorNotas.innerHTML = "" 
+    contenedorNotas.innerHTML = ""
 
     if (notas.length === 0) {
         // para mostrar mensjr si de notas vacío
@@ -47,13 +47,13 @@ function agregarNota() {
     const texto = document.getElementById("texto-nota").value
 
     if (titulo && texto) {
-        idGlobal++;
+        idGlobal++
         const nuevaNota = {
             id: idGlobal,
             titulo: titulo,
             texto: texto,
             realizada: false,
-        };
+        }
         notas.push(nuevaNota)
         pintarNotas()
 
@@ -74,17 +74,17 @@ function borrarNota(id) {
 }
 
 // checkbox true - false para filtrar notas y rayarlas 
-function marcarRealizada(id){
+function marcarRealizada(id) {
     for (let i = 0; i < notas.length; i++) {
         if (notas[i].id == id) {
-            if (notas[i].realizada ) {
+            if (notas[i].realizada) {
                 notas[i].realizada = false
-                
-            }else{
+
+            } else {
                 notas[i].realizada = true
             }
         }
-        
+
     }
     console.log(notas)
 }
@@ -96,5 +96,49 @@ function limpiarFormulario() {
     document.getElementById('texto-nota').value = ""
 }
 
-// botor limpiar
+// botor para limpiar el los campos de titulo, texto
 document.getElementById('btn-limpiar').addEventListener('click', limpiarFormulario)
+
+
+const productos = [
+    { id: 1, nombre: "Producto 1", descripcion: "Descripción del producto 1" },
+    { id: 2, nombre: "Producto 2", descripcion: "Descripción del producto 2" },
+    { id: 3, nombre: "Producto 3", descripcion: "Descripción del producto 3" },
+];
+
+const inputBusqueda = document.getElementById('busqueda');
+const seccionNotas = document.getElementById('contenedor-notas');
+
+inputBusqueda.addEventListener('keyup', () => {
+    const textoBusqueda = inputBusqueda.value.toLowerCase();
+    const productosFiltrados = notas.filter(notas => {
+        return notas.titulo.toLowerCase().includes(textoBusqueda) ||
+               notas.texto.toLowerCase().includes(textoBusqueda);
+    });
+
+    mostrarProductos(productosFiltrados);
+});
+
+function mostrarProductos(notas) {
+    seccionNotas.innerHTML = '';
+    notas.forEach(notas => {
+        const elementoNota = document.createElement('div');
+        const tarjeta = document.createElement("div")
+        elementoNota.classList.add("tarjeta-nota")
+            elementoNota.classList.add("card")
+            elementoNota.classList.add("m-2")
+            elementoNota.classList.add("justify-content-center")
+        elementoNota.innerHTML = `<h5 class="card-title">${notas.titulo}</h5>
+              <p class="card-text">${notas.texto}</p>
+              <input onClick="marcarRealizada(${notas.id})" type="checkbox" ${notas.realizada ? "checked" : ""}>
+              
+              <label for="check-${notas.id}">Realizada</label>
+              <button class="btn btn-primary" id="btn-borrar-${notas.id}">Borrar nota</button>  `;
+        seccionNotas.appendChild(elementoNota);
+        const botonBorrar = document.getElementById(`btn-borrar-${notas.id}`)
+            botonBorrar.addEventListener("click", () => borrarNota(notas.id))
+            
+    });
+}
+
+mostrarProductos(notas)
