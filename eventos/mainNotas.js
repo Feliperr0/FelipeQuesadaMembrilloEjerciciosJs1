@@ -10,22 +10,22 @@ let notas = [{
     realizada: false
 },
 ]
-let idGlobal = 2; // ID de la última nota de prueba, control
+let idGlobal = 2 // id control
 
 function pintarNotas() {
-    const contenedorNotas = document.getElementById("contenedor-notas");
-    contenedorNotas.innerHTML = ""; // Limpiar el contenido previo
+    const contenedorNotas = document.getElementById("contenedor-notas")
+    contenedorNotas.innerHTML = "" 
 
     if (notas.length === 0) {
-        // Mostrar mensaje si no hay notas
-        contenedorNotas.innerHTML = `<p>NO HAY NOTAS PARA MOSTRAR</p>`;
+        // para mostrar mensjr si de notas vacío
+        contenedorNotas.innerHTML = `<p>NO HAY NOTAS PARA MOSTRAR</p>`
     } else {
         notas.forEach((nota) => {
-            const tarjeta = document.createElement("div");
-            tarjeta.classList.add("tarjeta-nota");
-            tarjeta.classList.add("card");
-            tarjeta.classList.add("m-2");
-            tarjeta.classList.add("justify-content-center");
+            const tarjeta = document.createElement("div")
+            tarjeta.classList.add("tarjeta-nota")
+            tarjeta.classList.add("card")
+            tarjeta.classList.add("m-2")
+            tarjeta.classList.add("justify-content-center")
             tarjeta.innerHTML = `         
               <h5 class="card-title">${nota.titulo}</h5>
               <p class="card-text">${nota.texto}</p>
@@ -33,18 +33,18 @@ function pintarNotas() {
               
               <label for="check-${nota.id}">Realizada</label>
               <button class="btn btn-primary" id="btn-borrar-${nota.id}">Borrar nota</button>    
-        `;
-            contenedorNotas.appendChild(tarjeta);
+        `
+            contenedorNotas.appendChild(tarjeta)
 
-            const botonBorrar = document.getElementById(`btn-borrar-${nota.id}`);
-            botonBorrar.addEventListener("click", () => borrarNota(nota.id));
-        });
+            const botonBorrar = document.getElementById(`btn-borrar-${nota.id}`)
+            botonBorrar.addEventListener("click", () => borrarNota(nota.id))
+        })
     }
 }
 
 function agregarNota() {
-    const titulo = document.getElementById("titulo-nota").value;
-    const texto = document.getElementById("texto-nota").value;
+    const titulo = document.getElementById("titulo-nota").value
+    const texto = document.getElementById("texto-nota").value
 
     if (titulo && texto) {
         idGlobal++;
@@ -54,22 +54,47 @@ function agregarNota() {
             texto: texto,
             realizada: false,
         };
-        notas.push(nuevaNota);
-        pintarNotas();
+        notas.push(nuevaNota)
+        pintarNotas()
 
     } else {
-        alert("Debes completar ambos campos para crear una nota.");
+        alert("Debes completar ambos campos para crear una nota.")
     }
 }
-
-const botonGuardar = document.getElementById("btn-guardar");
-botonGuardar.addEventListener("click", agregarNota);
+// habilitar el botod para guardar las notas y que aparezcan en el div contenedor
+const botonGuardar = document.getElementById("btn-guardar")
+botonGuardar.addEventListener("click", agregarNota)
 
 function borrarNota(id) {
-    const indice = notas.findIndex((nota) => nota.id === id);
+    const indice = notas.findIndex((nota) => nota.id === id)
     if (indice !== -1) {
-        notas.splice(indice, 1);
-        pintarNotas();
+        notas.splice(indice, 1)
+        pintarNotas()
     }
 }
 
+// checkbox true - false para filtrar notas y rayarlas 
+function marcarRealizada(id){
+    for (let i = 0; i < notas.length; i++) {
+        if (notas[i].id == id) {
+            if (notas[i].realizada ) {
+                notas[i].realizada = false
+                
+            }else{
+                notas[i].realizada = true
+            }
+        }
+        
+    }
+    console.log(notas)
+}
+
+
+// limpiar formulario
+function limpiarFormulario() {
+    document.getElementById('titulo-nota').value = ""
+    document.getElementById('texto-nota').value = ""
+}
+
+// botor limpiar
+document.getElementById('btn-limpiar').addEventListener('click', limpiarFormulario)

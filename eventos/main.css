@@ -71,9 +71,13 @@ body {
 }
 
 
-#contenedor-notas{
-    background-color: aqua;
-    width:90vw;
-    height: 80vh;
-    border: 10px solid;
-}
+
+
+
+
+
+
+.norealizada{text-decoration:line-through;
+    color: red;
+
+}  
