@@ -103,6 +103,7 @@ document.getElementById('btn-limpiar').addEventListener('click', limpiarFormular
 
 const inputBusqueda = document.getElementById('busqueda')
 const seccionNotas = document.getElementById('contenedor-notas')
+const inputCheck = document.getElementById('checkbox-realizada')
 
 inputBusqueda.addEventListener('keyup', () => {
     const textoBusqueda = inputBusqueda.value.toLowerCase()
@@ -115,7 +116,7 @@ inputBusqueda.addEventListener('keyup', () => {
 })
 
 
-const inputCheck = document.getElementById('checkbox-realizada')
+
 inputCheck.addEventListener('click', () => {
     const inputCheckeado = inputCheck.checked
     if (inputCheckeado) {
@@ -160,58 +161,3 @@ function mostrarNotas(notas) {
     })
 }
 
-
-/*
-
-let mostrarSoloRealizadas = false;
-
-document.getElementById('checkbox-realizada').addEventListener('change', () => {
-  mostrarSoloRealizadas = document.getElementById('checkbox-realizada').checked;
-  mostrarNotas();
-});
-
-
-
-console.log(mostrarSoloRealizadas)
-
-
-function mostrarNotasFiltradas(notasFiltradas) {
-    notasFiltradas.forEach(nota => {
-      const elementoNota = document.createElement('div');
-      elementoNota.classList.add("tarjeta-nota");
-      elementoNota.classList.add("card");
-      elementoNota.classList.add("m-2");
-      elementoNota.classList.add("justify-content-center");
-      elementoNota.innerHTML = `
-        <h5 class="card-title">${nota.titulo}</h5>
-        <p class="card-text">${nota.texto}</p>
-        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
-        <label for="check-${nota.id}">Realizada</label>
-        <button class="btn btn-primary" id="btn-borrar-${nota.id}">Borrar nota</button>
-      `;
-      seccionNotas.appendChild(elementoNota);
-  
-      const botonBorrar = document.getElementById(`btn-borrar-${nota.id}`);
-      botonBorrar.addEventListener("click", () => borrarNota(nota.id));
-    });
-  }
-
-
-  function mostrarNotas(notas) {
-    seccionNotas.innerHTML = '';
-    const textoBusqueda = inputBusqueda.value.toLowerCase();
-    let notasFiltradas = notas.filter(nota => {
-      return nota.titulo.toLowerCase().includes(textoBusqueda) ||
-             nota.texto.toLowerCase().includes(textoBusqueda);
-    });
-  
-    if (mostrarSoloRealizadas) {
-      notasFiltradas = notasFiltradas.filter(nota => nota.realizada);
-    }
-  
-    mostrarNotasFiltradas(notasFiltradas);
-  }
-
-  document.getElementById('checkbox-realizada').addEventListener('change', () => {
-    mostrarNotas();
-  }); */
