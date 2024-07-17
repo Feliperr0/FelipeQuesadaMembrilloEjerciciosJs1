@@ -73,7 +73,7 @@ function borrarNota(id) {
     }
 }
 
-// checkbox true - false para filtrar notas y rayarlas 
+// checkbox true - false para checkear => filtrar notas y rayarlas 
 function marcarRealizada(id) {
     for (let i = 0; i < notas.length; i++) {
         if (notas[i].id == id) {
@@ -100,45 +100,118 @@ function limpiarFormulario() {
 document.getElementById('btn-limpiar').addEventListener('click', limpiarFormulario)
 
 
-const productos = [
-    { id: 1, nombre: "Producto 1", descripcion: "Descripción del producto 1" },
-    { id: 2, nombre: "Producto 2", descripcion: "Descripción del producto 2" },
-    { id: 3, nombre: "Producto 3", descripcion: "Descripción del producto 3" },
-];
 
-const inputBusqueda = document.getElementById('busqueda');
-const seccionNotas = document.getElementById('contenedor-notas');
+const inputBusqueda = document.getElementById('busqueda')
+const seccionNotas = document.getElementById('contenedor-notas')
 
 inputBusqueda.addEventListener('keyup', () => {
-    const textoBusqueda = inputBusqueda.value.toLowerCase();
-    const productosFiltrados = notas.filter(notas => {
+    const textoBusqueda = inputBusqueda.value.toLowerCase()
+    const notasFiltradas = notas.filter(notas => {
         return notas.titulo.toLowerCase().includes(textoBusqueda) ||
-               notas.texto.toLowerCase().includes(textoBusqueda);
-    });
+            notas.texto.toLowerCase().includes(textoBusqueda)
+    })
 
-    mostrarProductos(productosFiltrados);
-});
+    mostrarNotas(notasFiltradas)
+})
 
-function mostrarProductos(notas) {
-    seccionNotas.innerHTML = '';
+
+const inputCheck = document.getElementById('checkbox-realizada')
+inputCheck.addEventListener('click', () => {
+    const inputCheckeado = inputCheck.checked
+    if (inputCheckeado) {
+        const notasCheckeadas = notas.filter(nota => nota.realizada)
+        const textoBusqueda = inputBusqueda.value.toLowerCase()
+        const notasFiltradas = notasCheckeadas.filter(notas => {
+            return notas.titulo.toLowerCase().includes(textoBusqueda) ||
+                notas.texto.toLowerCase().includes(textoBusqueda)
+        })
+        mostrarNotas(notasFiltradas)
+    } else {
+        const textoBusqueda = inputBusqueda.value.toLowerCase()
+        const notasFiltradas = notas.filter(notas => {
+            return notas.titulo.toLowerCase().includes(textoBusqueda) ||
+                notas.texto.toLowerCase().includes(textoBusqueda)
+        })
+
+        mostrarNotas(notasFiltradas)
+    }
+
+})
+
+
+function mostrarNotas(notas) {
+    seccionNotas.innerHTML = ''
     notas.forEach(notas => {
-        const elementoNota = document.createElement('div');
-        const tarjeta = document.createElement("div")
+        const elementoNota = document.createElement('div')
         elementoNota.classList.add("tarjeta-nota")
-            elementoNota.classList.add("card")
-            elementoNota.classList.add("m-2")
-            elementoNota.classList.add("justify-content-center")
+        elementoNota.classList.add("card")
+        elementoNota.classList.add("m-2")
+        elementoNota.classList.add("justify-content-center")
         elementoNota.innerHTML = `<h5 class="card-title">${notas.titulo}</h5>
               <p class="card-text">${notas.texto}</p>
               <input onClick="marcarRealizada(${notas.id})" type="checkbox" ${notas.realizada ? "checked" : ""}>
               
               <label for="check-${notas.id}">Realizada</label>
-              <button class="btn btn-primary" id="btn-borrar-${notas.id}">Borrar nota</button>  `;
+              <button class="btn btn-primary" id="btn-borrar-${notas.id}">Borrar nota</button>  `
         seccionNotas.appendChild(elementoNota);
         const botonBorrar = document.getElementById(`btn-borrar-${notas.id}`)
-            botonBorrar.addEventListener("click", () => borrarNota(notas.id))
-            
-    });
+        botonBorrar.addEventListener("click", () => borrarNota(notas.id))
+
+    })
 }
 
-mostrarProductos(notas)
+
+/*
+
+let mostrarSoloRealizadas = false;
+
+document.getElementById('checkbox-realizada').addEventListener('change', () => {
+  mostrarSoloRealizadas = document.getElementById('checkbox-realizada').checked;
+  mostrarNotas();
+});
+
+
+
+console.log(mostrarSoloRealizadas)
+
+
+function mostrarNotasFiltradas(notasFiltradas) {
+    notasFiltradas.forEach(nota => {
+      const elementoNota = document.createElement('div');
+      elementoNota.classList.add("tarjeta-nota");
+      elementoNota.classList.add("card");
+      elementoNota.classList.add("m-2");
+      elementoNota.classList.add("justify-content-center");
+      elementoNota.innerHTML = `
+        <h5 class="card-title">${nota.titulo}</h5>
+        <p class="card-text">${nota.texto}</p>
+        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
+        <label for="check-${nota.id}">Realizada</label>
+        <button class="btn btn-primary" id="btn-borrar-${nota.id}">Borrar nota</button>
+      `;
+      seccionNotas.appendChild(elementoNota);
+  
+      const botonBorrar = document.getElementById(`btn-borrar-${nota.id}`);
+      botonBorrar.addEventListener("click", () => borrarNota(nota.id));
+    });
+  }
+
+
+  function mostrarNotas(notas) {
+    seccionNotas.innerHTML = '';
+    const textoBusqueda = inputBusqueda.value.toLowerCase();
+    let notasFiltradas = notas.filter(nota => {
+      return nota.titulo.toLowerCase().includes(textoBusqueda) ||
+             nota.texto.toLowerCase().includes(textoBusqueda);
+    });
+  
+    if (mostrarSoloRealizadas) {
+      notasFiltradas = notasFiltradas.filter(nota => nota.realizada);
+    }
+  
+    mostrarNotasFiltradas(notasFiltradas);
+  }
+
+  document.getElementById('checkbox-realizada').addEventListener('change', () => {
+    mostrarNotas();
+  }); */

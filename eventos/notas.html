@@ -9,35 +9,37 @@
 </head>
 
 <body>
-    
+
     <header>
         <h1 class="text-center bg-success-subtle">Mis Notas</h1>
     </header>
-  
-    <div id="nueva-nota" >
-        <h2 >Crear nueva nota</h2>
-        <input  type="text" id="titulo-nota" placeholder="Título" />
-        <textarea  id="texto-nota" placeholder="Escribe aquí tu nota"></textarea>
+
+    <div id="nueva-nota">
+        <h2>Crear nueva nota</h2>
+        <input type="text" id="titulo-nota" placeholder="Título" />
+        <textarea id="texto-nota" placeholder="Escribe aquí tu nota"></textarea>
         <button id="btn-guardar">Guardar</button>
         <button id="btn-limpiar">Borrar</button>
         <div id="filtros">
             <input type="text" id="busqueda" placeholder="Ingrese texto para buscar">
             <div class="form-check form-switch">
-            <input class="form-check-input"  type="checkbox" id="filtro-nota" />
-        </div>
-            <label for="filtro-realizada">Mostrar solo realizadas</label>
+                <input type="checkbox" id="checkbox-realizada">
+                <label for="checkbox-realizada">Mostrar solo realizadas</label>
+            </div>
+            
         </div>
     </div>
 
 
-      <div id="contenedor-notas">
-    
-      </div>
-    
-    
-    
- 
-    
+    <div id="contenedor-notas">
+
+    </div>
+
+
+
+
+
+
 
 
     <script src=".//mainNotas.js"></script>
