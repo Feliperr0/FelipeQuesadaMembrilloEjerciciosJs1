@@ -103,7 +103,6 @@ document.getElementById('btn-limpiar').addEventListener('click', limpiarFormular
 
 const inputBusqueda = document.getElementById('busqueda')
 const seccionNotas = document.getElementById('contenedor-notas')
-const inputCheck = document.getElementById('checkbox-realizada')
 
 inputBusqueda.addEventListener('keyup', () => {
     const textoBusqueda = inputBusqueda.value.toLowerCase()
@@ -116,7 +115,7 @@ inputBusqueda.addEventListener('keyup', () => {
 })
 
 
-
+const inputCheck = document.getElementById('checkbox-realizada')
 inputCheck.addEventListener('click', () => {
     const inputCheckeado = inputCheck.checked
     if (inputCheckeado) {
